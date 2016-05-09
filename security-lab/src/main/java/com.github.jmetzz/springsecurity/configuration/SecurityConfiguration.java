@@ -40,7 +40,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/home").permitAll() //URL’s ‘/’ & ‘/home’ are not secured
                 .antMatchers("/admin/**").access("hasRole('ADMIN')") //URL ‘/admin/**’ can only be accessed by someone who have ADMIN role
                 .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')") //URL ‘/db/**’ can only be accessed by someone who have both ADMIN and DBA roles
-                .and().formLogin() //provides support for form based authentication and will generate a default form asking for user credentials
+                .and().formLogin()
+                    .loginPage("/login") // set our own Custom login form to be launched instead of the default one provided by spring
+                    .usernameParameter("ssoId")
+                    .passwordParameter("password")
+                    .and().csrf() // Cross Site Request Forgery security is enable by default. It is explicitly stated here for the sake of clarity
                 .and().exceptionHandling().accessDeniedPage("/Access_Denied"); // in this case will catch all 403 [http access denied]
                                                                                // exceptions and display our user defined page instead of showing default HTTP 403 page
 
@@ -61,6 +65,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         <intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
         <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" />
         <form-login  authentication-failure-url="/Access_Denied" />
+        <form-login  login-page="/login" username-parameter="ssoId" password-parameter="password" authentication-failure-url="/Access_Denied" />
+        <csrf/>
     </http>
 
     <authentication-manager >

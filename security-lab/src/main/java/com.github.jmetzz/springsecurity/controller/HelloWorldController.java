@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 public class HelloWorldController {
 
 
-    /* NOTE:  ‘/login’ is missing, it is because it will be generated and handled by default by Spring Security */
-
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage() {
+        return "login";
+    }
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
@@ -44,7 +46,7 @@ public class HelloWorldController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "welcome";
+        return "redirect:/login?logout"; // redirect to login page on logout
     }
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
