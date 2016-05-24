@@ -45,6 +45,12 @@ public class HelloWorldController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
+            /*
+            This logout call performs following:
+                Invalidates HTTP Session ,then unbinds any objects bound to it.
+                Removes the Authentication from the SecurityContext to prevent issues with concurrent requests.
+                Explicitly clears the context value from the current thread.
+             */
         }
         return "redirect:/login?logout"; // redirect to login page on logout
     }

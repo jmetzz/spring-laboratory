@@ -13,37 +13,44 @@
     <description>Demo project for Spring Security</description>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.2</version>
-                    <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>2.4</version>
-                    <configuration>
-                        <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                        <warName>SpringSecurityHelloWorldAnnotationExample</warName>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                    </configuration>
-                </plugin>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>${version.java}</source>
+                    <target>${version.java}</target>
+                </configuration>
+            </plugin>
 
-                <plugin>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-maven-plugin</artifactId>
-                    <version>9.3.7.v20160115</version>
-                </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <warName>SpringSecurityDemoAnnotationExample</warName>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
 
-            </plugins>
-        </pluginManagement>
-        <finalName>SpringSecurityHelloWorldAnnotationExample</finalName>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <jettyXml>${project.basedir}/src/test/resources/jetty-configuration.xml</jettyXml>
+                    <stopKey>STOP</stopKey>
+                    <stopPort>9999</stopPort>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
+                    <webAppConfig>
+                        <contextPath>/security-lab</contextPath>
+                    </webAppConfig>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <finalName>SpringSecurityDemo</finalName>
     </build>
 
     <dependencies>
@@ -89,14 +96,14 @@
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>2.3.1</version>
+            <version>${version.servlet.jsp}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>${version.jstl}</version>
+            <version>${version.servlet.jstl}</version>
             <scope>provided</scope>
         </dependency>
 
