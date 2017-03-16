@@ -9,7 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.github.jmetzz.laboratory.spring</groupId>
     <artifactId>security-lab</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <description>Demo project for Spring Security</description>
 
     <build>
